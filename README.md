@@ -4,7 +4,7 @@ StackChemi is a modern, user-friendly web application that helps users analyze p
 
 ## 🎥 Demo
 
-[Video Demo Coming Soon]
+[![StackChemi Demo](https://img.youtube.com/vi/cPXqB_RIqRA/0.jpg)](https://youtu.be/cPXqB_RIqRA)
 
 ## 🌟 Features
 

@@ -37,7 +37,7 @@ export default function DrugInteractionAnalyzer({ initialDrugs = [] }: DrugInter
     } else {
       setSuggestions([]);
     }
-  }, [newDrug, drugList]);
+  }, [newDrug, drugList, suggestionsList]);
 
   const addDrug = (drug: string) => {
     if (drug && !drugList.includes(drug)) {
@@ -83,12 +83,6 @@ export default function DrugInteractionAnalyzer({ initialDrugs = [] }: DrugInter
       setLoading(false);
     }
   };
-
-  useEffect(() => {
-    if (analysis && svgRef.current && tooltipRef.current) {
-      renderInteractionGraph();
-    }
-  }, [analysis]);
 
   const renderInteractionGraph = () => {
     if (!analysis || !svgRef.current || !tooltipRef.current) return;
@@ -259,6 +253,12 @@ export default function DrugInteractionAnalyzer({ initialDrugs = [] }: DrugInter
         .on('end', dragended);
     }
   };
+
+  useEffect(() => {
+    if (analysis && svgRef.current && tooltipRef.current) {
+      renderInteractionGraph();
+    }
+  }, [analysis]);
 
   // Helper functions
   const getSeverityValue = (severity: string): number => {

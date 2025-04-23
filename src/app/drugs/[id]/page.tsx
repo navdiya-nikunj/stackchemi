@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // app/drugs/[id]/page.tsx
 import { Suspense } from 'react';
 import { getMolecule3D, getDrugDetails } from '@/lib/pubchem';
@@ -5,24 +6,13 @@ import MoleculeViewer from '@/components/MoleculeViewer';
 import AIExplanation from '@/components/AIExplanation';
 import { DrugProperty } from '@/lib/types';
 
-interface PageProps {
-  params: {
-    id: string;
-  };
+interface Props {
+  params: any;
+  searchParams: any;
 }
 
-export async function generateMetadata({ params }: PageProps) {
-  const drugDetails = await getDrugDetails(params.id);
-  const name = drugDetails?.PC_Compounds[0]?.props.find(
-    (prop: DrugProperty) => prop.urn.label === 'IUPAC Name'
-  )?.value?.sval || 'Drug Details';
-  
-  return {
-    title: name,
-  };
-}
 
-export default async function DrugPage({ params }: PageProps) {
+export default async function DrugPage({ params }: Props) {
   // Fetch data concurrently
   const [moleculeData, drugDetails] = await Promise.all([
     getMolecule3D(params.id),

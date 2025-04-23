@@ -1,7 +1,30 @@
 "use client";
 // components/MoleculeViewer.tsx
 import { useEffect, useRef } from 'react';
-import Script from 'next/script';
+
+// Define the window interface to include $3Dmol
+declare global {
+  interface Window {
+    $3Dmol: {
+      createViewer: (element: HTMLDivElement, options: { backgroundColor: string }) => Viewer;
+      SurfaceType: {
+        VDW: number;
+      };
+    };
+  }
+}
+
+interface Viewer {
+  addModel: (data: string, format: string) => Model;
+  setStyle: (sel: object, style: { stick: { radius: number } }) => void;
+  addSurface: (type: number, options: { opacity: number; color: string }) => void;
+  zoomTo: () => void;
+  render: () => void;
+  spin: (enabled: boolean) => void;
+}
+
+// Replace empty interface with a type alias
+type Model = object;
 
 interface MoleculeViewerProps {
   moleculeData: string;
@@ -11,7 +34,7 @@ interface MoleculeViewerProps {
 
 const MoleculeViewer = ({ moleculeData, height = '400px', width = '100%' }: MoleculeViewerProps) => {
   const viewerRef = useRef<HTMLDivElement>(null);
-  const moleculeRef = useRef<any>(null);
+  const moleculeRef = useRef<Model | null>(null);
 
   useEffect(() => {
     if (typeof window !== 'undefined' && window.$3Dmol && viewerRef.current && moleculeData) {
@@ -45,27 +68,17 @@ const MoleculeViewer = ({ moleculeData, height = '400px', width = '100%' }: Mole
   }, [moleculeData]);
 
   return (
-    <>
-      <Script 
-        src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" 
-        strategy="beforeInteractive"
-      />
-      <Script 
-        src="https://cdnjs.cloudflare.com/ajax/libs/3Dmol/2.0.3/3Dmol-min.js" 
-        strategy="beforeInteractive"
-      />
-      <div 
-        ref={viewerRef} 
-        style={{ 
-          height, 
-          width, 
-          position: 'relative',
-          borderRadius: '8px',
-          overflow: 'hidden',
-          boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
-        }} 
-      />
-    </>
+    <div 
+      ref={viewerRef} 
+      style={{ 
+        height, 
+        width, 
+        position: 'relative',
+        borderRadius: '8px',
+        overflow: 'hidden',
+        boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
+      }} 
+    />
   );
 };
 

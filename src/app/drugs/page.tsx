@@ -73,7 +73,7 @@ export default function DrugsPage() {
       ) : results.length > 0 ? (
         <div>
           <h2 className="text-xl font-semibold mb-4 text-foreground">
-            {results.length} result{results.length !== 1 ? 's' : ''} for "{searchQuery}"
+            {results.length} result{results.length !== 1 ? 's' : ''} for &quot;{searchQuery}&quot;
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {results.map((drug) => (
@@ -91,7 +91,7 @@ export default function DrugsPage() {
           <svg className="w-16 h-16 mx-auto text-muted-foreground/60 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
           </svg>
-          <p className="text-xl text-foreground mb-3">No results found for "{searchQuery}"</p>
+          <p className="text-xl text-foreground mb-3">No results found for &quot;{searchQuery}&quot;</p>
           <p className="text-muted-foreground max-w-md mx-auto">
             Try searching with a different drug name or check the spelling.
           </p>

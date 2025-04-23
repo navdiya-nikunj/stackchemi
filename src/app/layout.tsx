@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Link from "next/link";
 import "./globals.css";
+import Script from 'next/script';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,6 +26,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <Script 
+          src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" 
+          strategy="beforeInteractive"
+        />
+        <Script 
+          src="https://cdnjs.cloudflare.com/ajax/libs/3Dmol/2.0.3/3Dmol-min.js" 
+          strategy="beforeInteractive"
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
       >
@@ -42,7 +53,7 @@ export default function RootLayout({
                 Interaction Checker
               </Link>
               <Link 
-                href="https://github.com/yourusername/stackchemi" 
+                href="https://github.com/navdiya-nikunj/stackchemi" 
                 target="_blank"
                 className="text-foreground hover:text-primary transition-colors"
               >

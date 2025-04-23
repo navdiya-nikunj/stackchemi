@@ -5,7 +5,7 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-export async function generateDrugExplanation(drugName: string, molecularStructure: string) {
+export async function generateDrugExplanation(drugName: string) {
   const response = await openai.chat.completions.create({
     model: "gpt-4",
     messages: [
